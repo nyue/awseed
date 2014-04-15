@@ -21,6 +21,8 @@ apt-get -y install qt4-dev-tools
 apt-get -y install doxygen
 apt-get -y install libncurses5-dev
 apt-get -y install libpng12-dev
+apt-get -y install libxerces-c-dev
+apt-get -y install zlib1g-dev
 echo "APT-GET DONE" >> /tmp/status.log
 
 # Get appleseed source
@@ -115,7 +117,21 @@ then
     unzip /tmp/1_05_04.zip
     mkdir build_alembic
     cd build_alembic
-    cmake -D USE_LIB64=OFF -D LIBPYTHON_VERSION=2.7 -D USE_PYALEMBIC=ON ../alembic-1786c22d4ce0
+    cmake \
+	-D USE_STATIC_BOOST=OFF \
+	-D USE_EXTERNAL_EXR=ON \
+	-D USE_EXTERNAL_ALEMBIC=ON \
+	-D USE_EXTERNAL_XERCES=ON \
+	-D USE_EXTERNAL_PNG=ON \
+	-D USE_EXTERNAL_ZLIB=ON \
+	-D ALEMBIC_INCLUDE_DIR=/usr/local/alembic-1.5.4/include \
+	-D ALEMBIC_ABC_LIBRARY=/usr/local/alembic-1.5.4/lib/static/libAlembicAbc.a \
+	-D ALEMBIC_ABCCORE_ABS_LIBRARY=/usr/local/alembic-1.5.4/lib/static/libAlembicAbcCoreAbstract.a \
+	-D ALEMBIC_ABCCORE_HDF5_LIBRARY=/usr/local/alembic-1.5.4/lib/static/libAlembicAbcCoreHDF5.a \
+	-D ALEMBIC_ABCGEOM_LIBRARY=/usr/local/alembic-1.5.4/lib/static/libAlembicAbcGeom.a \
+	-D ALEMBIC_ABCUTIL_LIBRARY=/usr/local/alembic-1.5.4/lib/static/libAlembicUtil.a \
+	-D git_tag=1.1.0-alpha-20-710-g737ac2c \
+	../appleseed-1.1.0-alpha-21-preview-2/src/
     make install
     ldconfig -v
     popd
