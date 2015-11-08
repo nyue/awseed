@@ -2,6 +2,8 @@ import boto.ec2
 # See http://cloud-images.ubuntu.com/releases/12.04.2/release/
 default_region_name = 'ap-southeast-2' # This is Sydney
 default_ami_name = 'ami-4959c173' # Ubuntu 12.04.2 x64 EBS Sydney Region
+default_ami_name = 'ami-44617116' # CentOS 6.x (HVM) Asia Pacific Region
+default_ami_name = 'ami-7b81ca41' # CentOS 6.x (HVM) Sydney Region
 default_key_name='appleseed'
 default_security_groups=['ssh']
 # default_instance_type='t1.micro' # too small to build Python stuff, swaps!
